@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Scheduling Algorithm Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <h1>⚙️ Real-Time Scheduling Algorithm Simulator</h1>
+            <p>Visualize and Analyze Task Scheduling with Different Real-Time Algorithms</p>
+        </div>
+
+        <div class="container">
+            <!-- Algorithm Selection -->
+            <div class="algorithm-selector">
+                <button class="algo-btn active" onclick="setAlgorithm('RM')">Rate Monotonic (RM)</button>
+                <button class="algo-btn" onclick="setAlgorithm('EDF')">Earliest Deadline First (EDF)</button>
+                <button class="algo-btn" onclick="setAlgorithm('RR')">Round Robin (RR)</button>
+                <button class="algo-btn" onclick="setAlgorithm('FCFS')">First Come First Served (FCFS)</button>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-section">
+                <div class="control-group">
+                    <label for="simTime">Simulation Time (units)</label>
+                    <input type="range" id="simTime" min="30" max="150" value="80" onchange="updateSimulation()">
+                    <div class="value-display" id="simTimeVal">80 time units</div>
+                </div>
+                <div class="control-group">
+                    <label for="taskCount">Number of Tasks</label>
+                    <select id="taskCount" onchange="updateSimulation()">
+                        <option value="3">3 Tasks</option>
+                        <option value="4" selected>4 Tasks</option>
+                        <option value="5">5 Tasks</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="timeQuantum">Round Robin Time Quantum</label>
+                    <input type="range" id="timeQuantum" min="1" max="10" value="3" onchange="updateSimulation()">
+                    <div class="value-display" id="quantumVal">3 units</div>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color t1"></div>
+                    <div class="legend-text">Task 1</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color t2"></div>
+                    <div class="legend-text">Task 2</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color t3"></div>
+                    <div class="legend-text">Task 3</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color t4"></div>
+                    <div class="legend-text">Task 4</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color deadline"></div>
+                    <div class="legend-text">Deadline</div>
+                </div>
+            </div>
+
+            <!-- Metrics -->
+            <div class="metrics-container">
+                <div class="metric-card success">
+                    <div class="metric-label">CPU Utilization</div>
+                    <div class="metric-value" id="utilization">68</div>
+                    <div class="metric-unit">%</div>
+                </div>
+                <div class="metric-card danger">
+                    <div class="metric-label">Missed Deadlines</div>
+                    <div class="metric-value" id="missedDeadlines">0</div>
+                    <div class="metric-unit">tasks</div>
+                </div>
+                <div class="metric-card warning">
+                    <div class="metric-label">Average Wait Time</div>
+                    <div class="metric-value" id="avgWait">3.2</div>
+                    <div class="metric-unit">ms</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Context Switches</div>
+                    <div class="metric-value" id="contextSwitches">12</div>
+                    <div class="metric-unit">switches</div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="timeline-wrapper">
+                <div class="timeline-title">📊 Scheduling Timeline</div>
+                <div class="timeline-container">
+                    <div class="timeline" id="timeline">
+                        <div class="grid-lines" id="gridLines"></div>
+                        <div class="time-axis" id="timeAxis"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Table -->
+            <div class="table-wrapper">
+                <div class="table-title">📋 Task Configuration</div>
+                <table class="tasks-table">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Period (T)</th>
+                            <th>Deadline (D)</th>
+                            <th>Execution (C)</th>
+                            <th>Utilization</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tasksTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Real-Time Scheduling Algorithm Simulator v1.0 | Educational Tool for Learning Real-Time Systems</p>
+        </div>
+    </div>
+<script src="os.js"></script>
+</body>
+</html>
